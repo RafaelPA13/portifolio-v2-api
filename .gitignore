@@ -1,0 +1,64 @@
+# Bytecode Python
+*.py[cod]
+*$py.class
+__pycache__/
+
+# Ambientes virtuais
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Dependências/artefatos de build
+build/
+dist/
+.eggs/
+*.egg-info/
+.installed.cfg
+*.egg
+wheels/
+share/python-wheels/
+
+# Logs
+*.log
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Testes / cobertura
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Documentação buildada
+docs/_build/
+site/
+
+# Jupyter
+.ipynb_checkpoints
+
+# Ferramentas/IDE
+.spyderproject
+.spyproject
+.ropeproject
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+cython_debug/
+
+# PyCharm / JetBrains (se quiser ignorar tudo)
+#.idea/
