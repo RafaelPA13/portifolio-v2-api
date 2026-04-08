@@ -1,7 +1,7 @@
 from fastapi import HTTPException
-from src.db.admin import AdminRepository
-from src.core.security import verificar_senha, criar_token
-from src.schemas.admin import LoginInput, TokenOutput
+from db.admin import AdminRepository
+from core.security import verificar_senha, criar_token
+from schemas.admin import LoginInput, TokenOutput
 
 
 class AdminService:

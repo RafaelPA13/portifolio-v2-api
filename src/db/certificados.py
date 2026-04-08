@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Date
 from sqlalchemy.orm import relationship
-from src.db.base import Base, BaseRepository, certificados_tecnologias
+from db.base import Base, BaseRepository, certificados_tecnologias
 
 class Certificado(Base):
     __tablename__ = "certificados"

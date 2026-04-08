@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Text, Date, Boolean
 from sqlalchemy.orm import relationship
-from src.db.base import Base, BaseRepository, experiencias_tecnologias
+from db.base import Base, BaseRepository, experiencias_tecnologias
 
 class Experiencia(Base):
     __tablename__ = "experiencias"

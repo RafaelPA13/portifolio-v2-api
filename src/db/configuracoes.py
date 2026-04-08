@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Date
-from src.db.base import Base, BaseRepository
+from db.base import Base, BaseRepository
 
 class Configuracao(Base):
     __tablename__ = "configuracoes"

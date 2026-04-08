@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine, Table, Column, Integer, ForeignKey
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
-from src.core.config import settings
+from core.config import settings
 
 # Engine e Sessão
 engine = create_engine(settings.DATABASE_URL)
