@@ -1,6 +1,6 @@
-from sqlalchemy import Column, Integer, String, Text, Date, ForeignKey, Enum
+from sqlalchemy import Column, Integer, String, Text, Date, ForeignKey
 from sqlalchemy.orm import relationship
-from src.db.base import Base, BaseRepository, projetos_tecnologias
+from db.base import Base, BaseRepository, projetos_tecnologias
 import enum
 
 class TipoRepositorio(str, enum.Enum):
@@ -28,7 +28,7 @@ class ProjetoRepositorio(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     projeto_id = Column(Integer, ForeignKey("projetos.id"), nullable=False)
     link = Column(String(2000), nullable=False)
-    tipo = Column(Enum(TipoRepositorio), nullable=False)
+    tipo = Column(String(20), nullable=False)
 
     projeto = relationship("Projeto", back_populates="repositorios")
 

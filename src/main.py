@@ -1,6 +1,15 @@
+import sys
+import os
+sys.path.insert(0, os.path.dirname(__file__))
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.api.admin import router as admin_router
+from api.admin import router as admin_router
+from api.tecnologias import router as tecnologias_router
+from api.projetos import router as projetos_router
+from api.experiencias import router as experiencias_router
+from api.certificados import router as certificados_router
+
 
 app = FastAPI(
     title="Portfólio API",
@@ -19,6 +28,10 @@ app.add_middleware(
 
 # Routers
 app.include_router(admin_router)
+app.include_router(tecnologias_router)
+app.include_router(projetos_router)
+app.include_router(experiencias_router)
+app.include_router(certificados_router)
 
 @app.get("/")
 def health_check():
