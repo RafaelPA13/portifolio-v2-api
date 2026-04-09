@@ -17,6 +17,10 @@ class Settings(BaseSettings):
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
     
+    # Google
+    EMAIL_REMETENTE: str
+    EMAIL_SENHA: str
+    
     class Config:
         env_file = str(BASE_DIR / ".env")
         
