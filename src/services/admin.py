@@ -24,7 +24,7 @@ class AdminService:
         # Borda: email inexistente ou senha errada
         # Mesmo comportamento para não revelar se o email existe
         if not admin or not verificar_senha(dados.senha, admin.senha_hash):
-            raise HTTPException(status_code=401, detail="credenciais_invalidas")
+            raise HTTPException(status_code=401, detail="Credenciais inválidas")
 
         # Gera e retorna o token
         token = criar_token({"sub": str(admin.id), "email": admin.email})
