@@ -21,7 +21,10 @@ app = FastAPI(
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Ajustar para o domínio do frontend em produção
+    allow_origins=[
+        "http://localhost:8000/",
+        "https://portifolio-ten-ashy-88.vercel.app/"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
