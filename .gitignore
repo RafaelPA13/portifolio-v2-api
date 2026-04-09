@@ -60,5 +60,8 @@ dmypy.json
 .pytype/
 cython_debug/
 
+# Currículo - arquivo enviado pelo admin, não versionado
+src/static/curriculo/*.pdf
+
 # PyCharm / JetBrains (se quiser ignorar tudo)
 #.idea/

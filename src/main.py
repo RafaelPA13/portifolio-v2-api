@@ -9,7 +9,7 @@ from api.tecnologias import router as tecnologias_router
 from api.projetos import router as projetos_router
 from api.experiencias import router as experiencias_router
 from api.certificados import router as certificados_router
-
+from api.curriculo import router as curriculo_router
 
 app = FastAPI(
     title="Portfólio API",
@@ -32,6 +32,7 @@ app.include_router(tecnologias_router)
 app.include_router(projetos_router)
 app.include_router(experiencias_router)
 app.include_router(certificados_router)
+app.include_router(curriculo_router)
 
 @app.get("/")
 def health_check():
