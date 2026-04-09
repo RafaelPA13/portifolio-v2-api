@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     SUPABASE_URL: str
     SUPABASE_KEY: str
     SUPABASE_BUCKET: str
+    SUPABASE_BUCKET_CURRICULO: str
     
     # JWT
     SECRET_KEY: str
