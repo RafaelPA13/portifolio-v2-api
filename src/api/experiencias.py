@@ -17,13 +17,13 @@ def criar(dados: ExperienciaInput, db: Session = Depends(get_db), _=Depends(get_
     return ExperienciaService(db).criar(dados)
 
 @router.get("", response_model=list[ExperienciaOutput], responses={
-    400: {"description": "Nenhum Registro Encontrado"},
+    204: {"description": "Nenhum Registro Encontrado"},
 })
 def listar(db: Session = Depends(get_db)):
     return ExperienciaService(db).listar()
 
 @router.get("/{id}", response_model=ExperienciaOutput, responses={
-    400: {"description": "Nenhum Registro Encontrado"},
+    204: {"description": "Nenhum Registro Encontrado"},
     401: {"description": "Credenciais inválidas"},
 })
 def buscar(id: int, db: Session = Depends(get_db), _=Depends(get_admin_atual)):

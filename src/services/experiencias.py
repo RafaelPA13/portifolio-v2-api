@@ -88,20 +88,20 @@ class ExperienciaService:
             nulls_first(Experiencia.dt_fim.desc())
         ).all()
         if not registros:
-            raise HTTPException(status_code=400, detail="Nenhum Registro Encontrado")
+            raise HTTPException(status_code=204, detail="Nenhum Registro Encontrado")
         return registros
 
     def buscar(self, id: int):
         registro = self.repo.select_by_id(id)
         if not registro:
-            raise HTTPException(status_code=400, detail="Nenhum Registro Encontrado")
+            raise HTTPException(status_code=204, detail="Nenhum Registro Encontrado")
         return registro
 
     def atualizar(self, id: int, dados: ExperienciaInput):
         self._validar_campos(dados)
         registro = self.repo.select_by_id(id)
         if not registro:
-            raise HTTPException(status_code=400, detail="Nenhum Registro Encontrado")
+            raise HTTPException(status_code=204, detail="Nenhum Registro Encontrado")
 
         self._verificar_duplicado(dados.cargo, dados.empresa, ignorar_id=id)
 
@@ -124,5 +124,5 @@ class ExperienciaService:
     def remover(self, id: int):
         registro = self.repo.select_by_id(id)
         if not registro:
-            raise HTTPException(status_code=400, detail="Nenhum Registro Encontrado")
+            raise HTTPException(status_code=204, detail="Nenhum Registro Encontrado")
         self.repo.delete(id)

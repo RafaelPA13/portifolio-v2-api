@@ -17,13 +17,13 @@ def criar(dados: CertificadoInput, db: Session = Depends(get_db), _=Depends(get_
     return CertificadoService(db).criar(dados)
 
 @router.get("", response_model=list[CertificadoOutput], responses={
-    400: {"description": "Nenhum Registro Encontrado"},
+    204: {"description": "Nenhum Registro Encontrado"},
 })
 def listar(db: Session = Depends(get_db)):
     return CertificadoService(db).listar()
 
 @router.get("/{id}", response_model=CertificadoOutput, responses={
-    400: {"description": "Nenhum Registro Encontrado"},
+    204: {"description": "Nenhum Registro Encontrado"},
     401: {"description": "Credenciais inválidas"},
 })
 def buscar(id: int, db: Session = Depends(get_db), _=Depends(get_admin_atual)):

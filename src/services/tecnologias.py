@@ -41,14 +41,14 @@ class TecnologiaService:
     def listar(self):
         registros = self.repo.select_all()
         if not registros:
-            raise HTTPException(status_code=400, detail="Nenhum Registro Encontrado")
+            raise HTTPException(status_code=204, detail="Nenhum Registro Encontrado")
         return registros
 
     # GET BY ID 
     def buscar(self, id: int):
         registro = self.repo.select_by_id(id)
         if not registro:
-            raise HTTPException(status_code=400, detail="Nenhum Registro Encontrado")
+            raise HTTPException(status_code=204, detail="Nenhum Registro Encontrado")
         return registro
 
     # PUT 
@@ -56,7 +56,7 @@ class TecnologiaService:
         self._validar_campos(dados)
         registro = self.repo.select_by_id(id)
         if not registro:
-            raise HTTPException(status_code=400, detail="Nenhum Registro Encontrado")
+            raise HTTPException(status_code=204, detail="Nenhum Registro Encontrado")
 
         self._verificar_duplicado(dados.skill, ignorar_id=id)
 
@@ -68,5 +68,5 @@ class TecnologiaService:
     def remover(self, id: int):
         registro = self.repo.select_by_id(id)
         if not registro:
-            raise HTTPException(status_code=400, detail="Nenhum Registro Encontrado")
+            raise HTTPException(status_code=204, detail="Nenhum Registro Encontrado")
         self.repo.delete(id)

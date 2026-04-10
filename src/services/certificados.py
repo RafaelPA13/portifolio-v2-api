@@ -85,20 +85,20 @@ class CertificadoService:
     def listar(self):
         registros = self.db.query(Certificado).order_by(Certificado.criado_em.desc()).all()
         if not registros:
-            raise HTTPException(status_code=400, detail="Nenhum Registro Encontrado")
+            raise HTTPException(status_code=204, detail="Nenhum Registro Encontrado")
         return registros
 
     def buscar(self, id: int):
         registro = self.repo.select_by_id(id)
         if not registro:
-            raise HTTPException(status_code=400, detail="Nenhum Registro Encontrado")
+            raise HTTPException(status_code=204, detail="Nenhum Registro Encontrado")
         return registro
 
     def atualizar(self, id: int, dados: CertificadoInput):
         self._validar_campos(dados)
         registro = self.repo.select_by_id(id)
         if not registro:
-            raise HTTPException(status_code=400, detail="Nenhum Registro Encontrado")
+            raise HTTPException(status_code=204, detail="Nenhum Registro Encontrado")
 
         self._verificar_duplicado(dados.nome, ignorar_id=id)
 

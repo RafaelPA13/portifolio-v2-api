@@ -17,13 +17,13 @@ def criar(dados: TecnologiaInput, db: Session = Depends(get_db), _=Depends(get_a
     return TecnologiaService(db).criar(dados)
 
 @router.get("", response_model=list[TecnologiaOutput], responses={
-    400: {"description": "Nenhum Registro Encontrado"},
+    204: {"description": "Nenhum Registro Encontrado"},
 })
 def listar(db: Session = Depends(get_db)):
     return TecnologiaService(db).listar()
 
 @router.get("/{id}", response_model=TecnologiaOutput, responses={
-    400: {"description": "Nenhum Registro Encontrado"},
+    204: {"description": "Nenhum Registro Encontrado"},
     401: {"description": "Credenciais inválidas"},
 })
 def buscar(id: int, db: Session = Depends(get_db), _=Depends(get_admin_atual)):

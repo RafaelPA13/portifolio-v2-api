@@ -35,13 +35,13 @@ def criar(
     return ProjetoService(db).criar(dados, imagem)
 
 @router.get("", response_model=list[ProjetoOutput], responses={
-    400: {"description": "Nenhum Registro Encontrado"},
+    204: {"description": "Nenhum Registro Encontrado"},
 })
 def listar(db: Session = Depends(get_db)):
     return ProjetoService(db).listar()
 
 @router.get("/{id}", response_model=ProjetoOutput, responses={
-    400: {"description": "Nenhum Registro Encontrado"},
+    204: {"description": "Nenhum Registro Encontrado"},
 })
 def buscar(id: int, db: Session = Depends(get_db)):
     return ProjetoService(db).buscar(id)
