@@ -1,12 +1,11 @@
-import smtplib
-import os
+import aiosmtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from fastapi import HTTPException
 from schemas.contato import ContatoInput
 from core.config import settings
 
-EMAIL_DESTINO  = "rafaporann@gmail.com"
+EMAIL_DESTINO   = "rafaporann@gmail.com"
 EMAIL_REMETENTE = settings.EMAIL_REMETENTE
 EMAIL_SENHA     = settings.EMAIL_SENHA
 
@@ -18,28 +17,23 @@ class ContatoService:
 
         if not dados.nome or not dados.nome.strip():
             campos_faltantes.append("nome")
-
         if not dados.email or not dados.email.strip():
             campos_faltantes.append("email")
-
         if not dados.mensagem or len(dados.mensagem.strip()) < 3:
             campos_faltantes.append("mensagem")
 
         if campos_faltantes:
+            # Agora retorna string simples, não objeto
             raise HTTPException(
                 status_code=400,
-                detail={
-                    "mensagem": "Campos obrigatórios não preenchidos",
-                    "campos": campos_faltantes
-                }
+                detail=f"Campos obrigatórios não preenchidos: {', '.join(campos_faltantes)}"
             )
 
-    def enviar(self, dados: ContatoInput):
+    async def enviar(self, dados: ContatoInput):
         self._validar_campos(dados)
 
         assunto = dados.assunto.strip() if dados.assunto and dados.assunto.strip() else "Sem assunto"
 
-        # Monta o corpo do e-mail
         corpo = f"""
         <html>
             <body>
@@ -55,17 +49,22 @@ class ContatoService:
         """
 
         msg = MIMEMultipart("alternative")
-        msg["Subject"] = f"Portfólio - {assunto}"
-        msg["From"]    = EMAIL_REMETENTE
-        msg["To"]      = EMAIL_DESTINO
-        msg["Reply-To"] = dados.email  # ao responder, vai direto para quem enviou
+        msg["Subject"]  = f"Portfólio - {assunto}"
+        msg["From"]     = EMAIL_REMETENTE
+        msg["To"]       = EMAIL_DESTINO
+        msg["Reply-To"] = dados.email
 
         msg.attach(MIMEText(corpo, "html"))
 
         try:
-            with smtplib.SMTP_SSL("smtp.gmail.com", 465) as servidor:
-                servidor.login(EMAIL_REMETENTE, EMAIL_SENHA)
-                servidor.sendmail(EMAIL_REMETENTE, EMAIL_DESTINO, msg.as_string())
+            await aiosmtplib.send(
+                msg,
+                hostname="smtp.gmail.com",
+                port=465,
+                username=EMAIL_REMETENTE,
+                password=EMAIL_SENHA,
+                use_tls=True,
+            )
         except Exception:
             raise HTTPException(
                 status_code=500,
