@@ -65,10 +65,10 @@ class ContatoService:
                 password=EMAIL_SENHA,
                 use_tls=True,
             )
-        except Exception:
+        except Exception as e:
             raise HTTPException(
                 status_code=500,
-                detail="Erro ao enviar mensagem. Tente novamente mais tarde."
+                detail=f"Erro ao enviar mensagem: {str(e)}"
             )
 
         return {"mensagem": "Mensagem Enviada"}
