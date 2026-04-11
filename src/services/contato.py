@@ -1,13 +1,11 @@
-import aiosmtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+import resend
 from fastapi import HTTPException
 from schemas.contato import ContatoInput
 from core.config import settings
 
-EMAIL_DESTINO   = "rafaporann@gmail.com"
-EMAIL_REMETENTE = settings.EMAIL_REMETENTE
-EMAIL_SENHA     = settings.EMAIL_SENHA
+EMAIL_DESTINO = "rafaporann@gmail.com"
+
+resend.api_key = settings.RESEND_API_KEY
 
 
 class ContatoService:
@@ -23,7 +21,6 @@ class ContatoService:
             campos_faltantes.append("mensagem")
 
         if campos_faltantes:
-            # Agora retorna string simples, não objeto
             raise HTTPException(
                 status_code=400,
                 detail=f"Campos obrigatórios não preenchidos: {', '.join(campos_faltantes)}"
@@ -48,23 +45,14 @@ class ContatoService:
         </html>
         """
 
-        msg = MIMEMultipart("alternative")
-        msg["Subject"]  = f"Portfólio - {assunto}"
-        msg["From"]     = EMAIL_REMETENTE
-        msg["To"]       = EMAIL_DESTINO
-        msg["Reply-To"] = dados.email
-
-        msg.attach(MIMEText(corpo, "html"))
-
         try:
-            await aiosmtplib.send(
-                msg,
-                hostname="smtp.gmail.com",
-                port=465,
-                username=EMAIL_REMETENTE,
-                password=EMAIL_SENHA,
-                use_tls=True,
-            )
+            resend.Emails.send({
+                "from": "Portfólio <onboarding@resend.dev>",
+                "to": EMAIL_DESTINO,
+                "reply_to": dados.email,
+                "subject": f"Portfólio - {assunto}",
+                "html": corpo,
+            })
         except Exception as e:
             raise HTTPException(
                 status_code=500,

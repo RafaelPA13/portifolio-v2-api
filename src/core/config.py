@@ -21,6 +21,7 @@ class Settings(BaseSettings):
     # Google
     EMAIL_REMETENTE: str
     EMAIL_SENHA: str
+    RESEND_API_KEY: str
     
     class Config:
         env_file = str(BASE_DIR / ".env")
